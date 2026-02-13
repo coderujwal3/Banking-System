@@ -1,13 +1,18 @@
 const userModel = require('../models/user.model')
 const jwt = require('jsonwebtoken');
-const emailService = require('../services/email.service')
+const messageService = require('../services/message.service')
 
 /**
 * - user register controller
 * - POST api/auth/register 
 */
 async function userRegisterController(req, res) {
-    const { email, name, password } = req.body;
+    const { email, name, password, phone } = req.body;
+    /**
+     * - Formatting the phone number
+     * - Only for indian phone numbers
+     */
+    const formattedPhone = `+91${phone}`;
 
     const isExists = await userModel.findOne({
         email: email
@@ -21,7 +26,7 @@ async function userRegisterController(req, res) {
     }
 
     const user = await userModel.create({
-        email, name, password
+        email, name, password, phone: formattedPhone
     })
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' })
@@ -31,10 +36,11 @@ async function userRegisterController(req, res) {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: formattedPhone,
         }, token
     })
 
-    await emailService.sendRegistrationEmail(user.email, user.name)
+    await messageService.sendRegistrationSMS(user.phone, user.name)
 }
 
 
@@ -70,8 +76,6 @@ async function userLoginController(req, res) {
             email: user.email,
         }, token
     })
-
-    await emailService.sendLoginEmail(user.email, user.name);
 }
 
 module.exports = { userRegisterController, userLoginController };

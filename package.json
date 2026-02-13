@@ -1,5 +1,5 @@
 {
-  "name": "banking-system",
+  "name": "MONO Banking Ledger",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,6 +20,7 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.0",
-    "nodemailer": "^8.0.1"
+    "nodemailer": "^8.0.1",
+    "twilio": "^5.12.1"
   }
 }

@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
         required: [true, "Password is necessary"],
         minlength: [6, "Password should be atleast 6 characters long"],
         select: false
+    },
+    phone: {
+        type: String,
+        required: [true, "Phone number is required for sending you the latest updates via SMS"],
     }
 }, {
     timestamps: true
