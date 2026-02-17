@@ -27,7 +27,47 @@ const accountSchema = new mongoose.Schema({
 
 
 // account index (compound unique index for optimizing the search)
-accountSchema.index({ user: 1, currency: 1});
+accountSchema.index({ user: 1, currency: 1 });
+
+/**
+ * - Get balance of user
+ */
+accountSchema.methods.getBalance = async function () {
+    const balance = await ledgerModel.aggregate([
+        { $match: { account: this._id } },
+        {
+            $group: {
+                _id: null,
+                totalDebit: {
+                    $sum: {
+                        $cond: [{ $eq: ['$type', 'DEBIT'] },
+                            '$amount', 0
+                        ]
+                    }
+                },
+                totalCredit: {
+                    $sum: {
+                        $cond: [{ $eq: ['$type', 'CREDIT'] },
+                            '$amount', 0
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                balance: { $subtract: ['$totalCredit', '$totalDebit'] }
+            }
+        }
+    ])
+
+    if (balance.length == 0) {
+        return 0;
+    } else {
+        return balance[0].balance;
+    }
+}
 
 const accountModel = mongoose.model('account', accountSchema);
 module.exports = accountModel;

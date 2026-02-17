@@ -11,11 +11,13 @@ app.use(express.json())
  */
 const authRouter = require('./routes/auth.route')
 const accountRouter = require("./routes/account.routes")
+const TransactionRoutes = require('./routes/transaction.routes')
 
 /**
  * - Use api routes
  */
 app.use('/api/auth', authRouter)
 app.use('/api/accounts', accountRouter)
+app.use('/api/transactions', TransactionRoutes)
 
 module.exports = app
