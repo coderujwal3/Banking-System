@@ -14,6 +14,11 @@ const authRouter = require('./routes/auth.route')
 const accountRouter = require("./routes/account.routes")
 const TransactionRoutes = require('./routes/transaction.routes')
 
+
+app.get("/", (req, res) => {
+    res.send("MONO Banking Backend Ledger System is Ready to use")
+})
+
 /**
  * - Use api routes
  */
