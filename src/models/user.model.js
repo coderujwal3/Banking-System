@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: [true, "Phone number is required for sending you the latest updates via SMS"],
+    },
+    systemUser: {
+        type: Boolean,
+        default: false,
+        immutable: true,
+        select: false
     }
 }, {
     timestamps: true

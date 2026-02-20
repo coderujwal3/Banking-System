@@ -1,5 +1,6 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
+// const seedSystemBalance = require('../src/seeders/systemuser.seed')
 
 const app = express();
 
@@ -19,5 +20,7 @@ const TransactionRoutes = require('./routes/transaction.routes')
 app.use('/api/auth', authRouter)
 app.use('/api/accounts', accountRouter)
 app.use('/api/transactions', TransactionRoutes)
+
+// seedSystemBalance();
 
 module.exports = app

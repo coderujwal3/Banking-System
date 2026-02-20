@@ -11,8 +11,8 @@ const currentDateTimeString = new Date().toString();
 /**
  * - Create a new Client who sends sms automatically
  */
+const client = new twilio(accountSID, authToken);
 try {
-    const client = new twilio(accountSID, authToken);
     if (client) {
         console.log("\n📃📃📃 Client Created Successfully, SMS Service is ready to send SMSs 📃📃📃\n");
     }
@@ -25,7 +25,6 @@ async function sendSMS(toNumber, messageBody) {
         const info = await client.messages.create({
             body: messageBody,
             from: fromNumber,
-            messagingServiceSid: messageServiceSid,
             to: toNumber
         }).then(message => console.log('Message sent: %s', message.sid));
     } catch (error) {
