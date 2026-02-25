@@ -50,7 +50,7 @@ async function sendTransactionCompletedSMS_fromUser(toNumber, name, amount, from
 async function sendTransactionCompletedSMS_toUser(toNumber, name, amount, fromAccountNumber, toAccountNumber) {
     const currentDateTimeString = new Date().toString();
     const headline = 'Credited Amount';
-    const text = `\n${headline}\nHello ${name},\nYour a/c ${toAccountNumber} is credited with ${amount} on ${currentDateTimeString} on ${currentDateTimeString} from ${fromAccountNumber}.\n\nBEST REGARDS,\nMONO BANKING LEDGER`;
+    const text = `\n${headline}\nHello ${name},\nYour a/c ${toAccountNumber} is credited with ${amount} on ${currentDateTimeString} from a/c ${fromAccountNumber}.\n\nBEST REGARDS,\nMONO BANKING LEDGER`;
 
     await sendSMS(toNumber, text);
 }

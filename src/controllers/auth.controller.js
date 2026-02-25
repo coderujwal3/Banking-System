@@ -2,6 +2,7 @@ const userModel = require('../models/user.model')
 const jwt = require('jsonwebtoken');
 const messageService = require('../services/message.service')
 const tokenBlacklistModel = require('../models/tokenBlacklist.model');
+const emailService = require('../services/email.service');
 
 
 /**
@@ -43,6 +44,7 @@ async function userRegisterController(req, res) {
     })
 
     await messageService.sendRegistrationSMS(user.phone, user.name)
+    await emailService.sendRegistrationEmail(user.email, user.name)
 }
 
 
