@@ -5,7 +5,6 @@ const twilio = require('twilio');
 const accountSID = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const fromNumber = process.env.TWILIO_PHONE_NUMBER;
-const messageServiceSid = process.env.TWILIO_MESSAGE_SERVICE_SID;
 
 const currentDateTimeString = new Date().toString();
 /**
